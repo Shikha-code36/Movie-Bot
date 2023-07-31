@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Bot</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .card-body {
+            white-space: pre-line;
+        }
+        /* Set max height and enable scrolling */
+        .scroll-container {
+            max-height: 300px; /* Adjust the height as needed */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Movie Bot</h1>
+        <form method="post" action="/submit">
+            <div class="form-group">
+                <label for="user_input">Enter your query:</label>
+                {% if selected_option == '4' %}
+                    <input type="text" class="form-control" id="user_input" name="user_input" value="Top Rated Movies" required>
+                {% else %}
+                    <input type="text" class="form-control" id="user_input" name="user_input" value="{{ user_input }}" required>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="selected_option">Select option:</label>
+                <select class="form-control" id="selected_option" name="selected_option" required>
+                    <option value="1" {% if selected_option == '1' %} selected {% endif %}>Movie</option>
+                    <option value="2" {% if selected_option == '2' %} selected {% endif %}>Genre</option>
+                    <option value="3" {% if selected_option == '3' %} selected {% endif %}>Mood</option>
+                    <option value="4" {% if selected_option == '4' %} selected {% endif %}>Top Rated</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <!-- Scrollable container for the response -->
+        <div class="scroll-container">
+            {% if response %}
+                <div class="card">
+                    <div class="card-header">Movie Bot Response:</div>
+                    <div class="card-body">
+                        {{ response }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
